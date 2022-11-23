@@ -21,7 +21,7 @@ public class Position {
 
   /**
    * Constructs a new {@code Position} class. Used for non-random positions.
-   * 
+   *
    * @param input The alphanumeric typed by the user
    */
   public Position(String input) {
@@ -29,9 +29,9 @@ public class Position {
   }
 
   /**
-   * Constructs a new {@code Position} class. Used for random positions generated with
-   * {@link #getRandom} method.
-   * 
+   * Constructs a new {@code Position} class. Used for random positions generated
+   * with {@link #getRandom} method.
+   *
    * @param row The random row
    * @param col The random column
    */
@@ -50,7 +50,7 @@ public class Position {
 
   /**
    * Returns a valid, random position on the board.
-   * 
+   *
    * @return Position
    */
   public static Position getRandom() {
@@ -59,11 +59,11 @@ public class Position {
 
   /**
    * Resizes the board to {@code size}.
-   * 
+   *
    * <p>
-   * Called by the constructor of the {@link Game} class when we want to change the size of the
-   * board.
-   * 
+   * Called by the constructor of the {@link Game} class when we want to change
+   * the size of the board.
+   *
    * @param size The size of the board
    */
   public static void setBoardSize(int size) {
@@ -71,8 +71,9 @@ public class Position {
   }
 
   /**
-   * Checks if the alphanumeric is valid, i.e. if it corresponds to any position of the table.
-   * 
+   * Checks if the alphanumeric is valid, i.e. if it corresponds to any position
+   * of the table.
+   *
    * @return boolean
    */
   public boolean isValid() {
@@ -86,9 +87,9 @@ public class Position {
   }
 
   /**
-   * Checks if the position given by the player is available on the board (if there isn't an 'X' or
-   * 'O').
-   * 
+   * Checks if the position given by the player is available on the board (if
+   * there isn't an 'X' or 'O').
+   *
    * @param board The game board
    * @return boolean
    */
@@ -98,10 +99,10 @@ public class Position {
 
   /**
    * Checks if the player's position belongs to the diagonal of the board.
-   * 
+   *
    * <p>
    * Prevents unnecessary table access when searching for a n-tuple.
-   * 
+   *
    * @return boolean
    */
   public boolean isDiagonal() {
@@ -110,10 +111,10 @@ public class Position {
 
   /**
    * Checks if the player's position belongs to the antidiagonal of the board.
-   * 
+   *
    * <p>
    * Prevents unnecessary table access when searching for a n-tuple.
-   * 
+   *
    * @return boolean
    */
   public boolean isAntiDiagonal() {
@@ -121,7 +122,8 @@ public class Position {
   }
 
   /**
-   * Converts the alphanumeric value entered by the user to an array's row and column.
+   * Converts the alphanumeric value entered by the user to an array's row and
+   * column.
    */
   private void parse() {
     this.row = input.charAt(1) - 49;
@@ -132,6 +134,6 @@ public class Position {
   public String toString() {
     final char rowChar = (char) (this.row + 49);
     final char colChar = (char) (this.col + 65);
-    return new String(new char[] {colChar, rowChar});
+    return new String(new char[] { colChar, rowChar });
   }
 }

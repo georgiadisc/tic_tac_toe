@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Game {
 
   // The array in which player positions are stored
-  private char[][] board;
+  private final char[][] board;
 
   // The size of the board
   private int boardSize = 3;
@@ -14,17 +14,17 @@ public class Game {
   private boolean isTerminated = false;
 
   // The player's last position, which allows us to skip unnecessary rows and
-  // columns of the board, when looking for a n-tuple at end of each round
+  // columns of the board, when looking for an n-tuple at end of each round
   private Position lastPosition;
 
   // The text scanner used for the users positions
   private final Scanner scanner;
 
   // The first player, assigned with the 'X' symbol
-  private Player firstPlayer;
+  private final Player firstPlayer;
 
   // The second player, assigned with the 'O' symbol
-  private Player secondPlayer;
+  private final Player secondPlayer;
 
   // The current player
   private Player currPlayer;
@@ -33,18 +33,19 @@ public class Game {
   private Player winner;
 
   // A StringBuilder, prevents unnecessary calls to methods that print to the
-  // console (eg print and println)
+  // console (e.g. print and println)
   private static final StringBuilder console = new StringBuilder();
 
   /**
-   * Constructs a new {@link Game} class that is responsible for running the Tic-Tac-Toe game.
+   * Constructs a new {@link Game} class that is responsible for running the
+   * Tic-Tac-Toe game.
    * 
    * <p>
-   * In order to play against the computer, one player needs to be initialized with the
-   * {@code random} parameter true.
+   * In order to play against the computer, one player needs to be initialized
+   * with the {@code random} parameter true.
    * 
-   * @param scanner The text scanner
-   * @param firstPlayer The first player, usually the user
+   * @param scanner      The text scanner
+   * @param firstPlayer  The first player, usually the user
    * @param secondPlayer The second player, usually the computer
    */
   public Game(Scanner scanner, Player firstPlayer, Player secondPlayer) {
@@ -57,16 +58,16 @@ public class Game {
   }
 
   /**
-   * Constructs a new {@link Game} class that is responsible for running the Tic-Tac-Toe game, with
-   * board size {@code boardSize}.
+   * Constructs a new {@link Game} class that is responsible for running the
+   * Tic-Tac-Toe game, with board size {@code boardSize}.
    * 
    * <p>
-   * In order to play against the computer, one player needs to be initialized with the
-   * {@code random} parameter true.
+   * In order to play against the computer, one player needs to be initialized
+   * with the {@code random} parameter true.
    *
-   * @param boardSize The board size
-   * @param scanner The text scanner
-   * @param firstPlayer The first player, usually the user
+   * @param boardSize    The board size
+   * @param scanner      The text scanner
+   * @param firstPlayer  The first player, usually the user
    * @param secondPlayer The second player, usually the computer
    */
   public Game(int boardSize, Scanner scanner, Player firstPlayer, Player secondPlayer) {
@@ -81,7 +82,8 @@ public class Game {
   }
 
   /**
-   * Assigns the symbol 'X' to the first player and the symbol 'O' to the second player.
+   * Assigns the symbol 'X' to the first player and the symbol 'O' to the second
+   * player.
    */
   private void assignSymbols() {
     firstPlayer.setSymbol('X');
@@ -101,17 +103,17 @@ public class Game {
     console.append(") and then the row (");
     appendSequence('1', boardSize, false, false);
     console.append(") of your move.\n");
-    flush(console);
+    flush();
   }
 
   /**
-   * Appends a sequence of consecutive {@code characters} to the {@link #console}, starting from the
-   * {@code firstChar}.
+   * Appends a sequence of consecutive {@code characters} to the {@link #console},
+   * starting from the {@code firstChar}.
    * 
-   * @param firstChar The first character
+   * @param firstChar  The first character
    * @param characters The number of characters we want to append
-   * @param trimComma True if we want the comma to be omitted on every append
-   * @param trimOr True if we want the string "or" to be omitted last append
+   * @param trimComma  True if we want the comma to be omitted on every append
+   * @param trimOr     True if we want the string "or" to be omitted last append
    */
   private void appendSequence(char firstChar, int characters, boolean trimComma, boolean trimOr) {
     int i;
@@ -132,34 +134,32 @@ public class Game {
     for (int i = 0; i < boardSize; i++) {
       console.append(String.format("%d |", i + 1));
       for (int y = 0; y < boardSize; y++) {
-        console.append((board[i][y] == 0 ? " " : board[i][y]) + "|");
+        console.append(board[i][y] == 0 ? " " : board[i][y]).append("|");
       }
       console.append("\n");
     }
     console.append("\n");
-    flush(console);
+    flush();
   }
 
   /**
-   * Prints the alphanumeric contained in {@code StringBuilder} and then restores it to its original
-   * state.
-   * 
-   * @param console The StringBuilder
+   * Prints the alphanumeric contained in {@code StringBuilder} and then restores
+   * it to its original state.
    */
-  private void flush(StringBuilder console) {
-    System.out.print(console.toString());
+  private void flush() {
+    System.out.print(console);
     console.setLength(0);
   }
 
   /**
-   * Displays the winner, if any. Otherwise informs that the game ended in a tie.
+   * Displays the winner, if any. Otherwise, informs that the game ended in a tie.
    */
   public void showResults() {
     if (winner != null) {
       if (winner.getName().equals(firstPlayer.getName())) {
-        System.out.println(String.format("You(%s) win!", firstPlayer.getName()));
+        System.out.printf("You(%s) win!%n", firstPlayer.getName());
       } else {
-        System.out.println(String.format("%s won :(", secondPlayer.getName()));
+        System.out.printf("%s won :(%n", secondPlayer.getName());
       }
     } else {
       System.out.println("Tie!");
@@ -169,12 +169,12 @@ public class Game {
   /**
    * Register a player's position on the board.
    * <ul>
-   * <li>If the player does not enter a valid position (row and column) then a relevant message is
-   * shown and we return to the game loop.</li>
-   * <li>If the player enters an occupied position (there is already an 'X' or 'O') then a relevant
-   * message is shown and we return to the game loop.</li>
-   * <li>If the player enters a valid and unoccupied position then that position is registered at
-   * the table.</li>
+   * <li>If the player does not enter a valid position (row and column) then a
+   * relevant message is shown and we return to the game loop.</li>
+   * <li>If the player enters an occupied position (there is already an 'X' or
+   * 'O') then a relevant message is shown and we return to the game loop.</li>
+   * <li>If the player enters a valid and unoccupied position then that position
+   * is registered at the table.</li>
    * </ul>
    */
   public void setPosition() {
@@ -182,13 +182,13 @@ public class Game {
     boolean didRegister = false;
     do {
       System.out
-          .print(String.format("%s Move (%c): ", currPlayer.getName(), currPlayer.getSymbol()));
+          .printf("%s Move (%c): ", currPlayer.getName(), currPlayer.getSymbol());
       if (currPlayer.isRandom()) {
         do {
           position = Position.getRandom();
         } while (!position.isAvailable(board));
         didRegister = true;
-        System.out.println(position.toString());
+        System.out.println(position);
       } else {
         String move = scanner.next();
         position = new Position(move);
@@ -245,10 +245,11 @@ public class Game {
    * <li>Vertically</li>
    * <li>Diagonally</li>
    * </ul>
-   * in order to find a n-tuple.
+   * in order to find an n-tuple.
    * <p>
-   * If a n-tuple was found, it means that last player has won the game. Otherwise, the
-   * {@link #isTie()} method is called to check if the game ended in a tie.
+   * If an n-tuple was found, it means that last player has won the game.
+   * Otherwise, the {@link #isTie()} method is called to check if the game ended
+   * in a tie.
    */
   public void updateState() {
     if (traverseRow())
@@ -265,11 +266,12 @@ public class Game {
   /**
    * Traverses the row in which lies the last position.
    * <ul>
-   * <li>It first checks if the first element of the array is empty. In this case the method returns
-   * false.</li>
-   * <li>Otherwise, it compares this first element with the rest elements of the row until it finds
-   * one with a different value than itself. If the loop terminates without returning false, we set
-   * the last player as winner with the {@link #setWinner()} method and return the true.</li>
+   * <li>It first checks if the first element of the array is empty. In this case
+   * the method returns false.</li>
+   * <li>Otherwise, it compares this first element with the rest elements of the
+   * row until it finds one with a different value than itself. If the loop
+   * terminates without returning false, we set the last player as winner with the
+   * {@link #setWinner()} method and return the true.</li>
    * </ul>
    * 
    * @return boolean
@@ -291,11 +293,12 @@ public class Game {
   /**
    * Traverses the column in which lies the last position.
    * <ul>
-   * <li>It first checks if the first element of the column is empty. In this case the method
-   * returns false.</li>
-   * <li>Otherwise, it compares this first element with the rest elements of the column until it
-   * finds one with a different value than itself. If the loop terminates without returning false,
-   * we set the last player as winner with the {@link #setWinner()} method and return the true.</li>
+   * <li>It first checks if the first element of the column is empty. In this case
+   * the method returns false.</li>
+   * <li>Otherwise, it compares this first element with the rest elements of the
+   * column until it finds one with a different value than itself. If the loop
+   * terminates without returning false, we set the last player as winner with the
+   * {@link #setWinner()} method and return the true.</li>
    * </ul>
    * 
    * @return boolean
@@ -317,11 +320,12 @@ public class Game {
   /**
    * Traverses the diagonal of the board.
    * <ul>
-   * <li>It first checks if the first element of the diagonal is empty. In this case the method
-   * returns false.</li>
-   * <li>Otherwise, it compares this first element with the rest elements of the diagonal until it
-   * finds one with a different value than itself. If the loop terminates without returning false,
-   * we set the last player as winner with the {@link #setWinner()} method and return the true.</li>
+   * <li>It first checks if the first element of the diagonal is empty. In this
+   * case the method returns false.</li>
+   * <li>Otherwise, it compares this first element with the rest elements of the
+   * diagonal until it finds one with a different value than itself. If the loop
+   * terminates without returning false, we set the last player as winner with the
+   * {@link #setWinner()} method and return the true.</li>
    * </ul>
    * 
    * @return boolean
@@ -343,12 +347,12 @@ public class Game {
   /**
    * Traverses the antidiagonal of the board.
    * <ul>
-   * <li>It first checks if the first element of the antidiagonal is empty. In this case the method
-   * returns false.</li>
-   * <li>Otherwise, it compares this first element with the rest elements of the antidiagonal until
-   * it finds one with a different value than itself. If the loop terminates without returning
-   * false, we set the last player as winner with the {@link #setWinner()} method and return the
-   * true.</li>
+   * <li>It first checks if the first element of the antidiagonal is empty. In
+   * this case the method returns false.</li>
+   * <li>Otherwise, it compares this first element with the rest elements of the
+   * antidiagonal until it finds one with a different value than itself. If the
+   * loop terminates without returning false, we set the last player as winner
+   * with the {@link #setWinner()} method and return the true.</li>
    * </ul>
    * 
    * @return boolean
@@ -368,8 +372,8 @@ public class Game {
   }
 
   /**
-   * Called when a player has won, i.e. when there has been filled at least one n-tuple in the
-   * table.
+   * Called when a player has won, i.e. when there has been filled at least one
+   * n-tuple in the table.
    */
   private void setWinner() {
     winner = getLastPlayer();
@@ -390,8 +394,8 @@ public class Game {
   }
 
   /**
-   * Checks if the batch ended in a tie, that is, if there is at least one vacancy. If there is no
-   * vacancy the game ends.
+   * Checks if the batch ended in a tie, that is, if there is at least one
+   * vacancy. If there is no vacancy the game ends.
    */
   boolean isTie() {
     for (int i = 0; i < boardSize; i++) {
