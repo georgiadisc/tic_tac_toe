@@ -39,11 +39,11 @@ public class Game {
   /**
    * Constructs a new {@link Game} class that is responsible for running the
    * Tic-Tac-Toe game.
-   * 
+   *
    * <p>
    * In order to play against the computer, one player needs to be initialized
    * with the {@code random} parameter true.
-   * 
+   *
    * @param scanner      The text scanner
    * @param firstPlayer  The first player, usually the user
    * @param secondPlayer The second player, usually the computer
@@ -60,7 +60,7 @@ public class Game {
   /**
    * Constructs a new {@link Game} class that is responsible for running the
    * Tic-Tac-Toe game, with board size {@code boardSize}.
-   * 
+   *
    * <p>
    * In order to play against the computer, one player needs to be initialized
    * with the {@code random} parameter true.
@@ -109,11 +109,12 @@ public class Game {
   /**
    * Appends a sequence of consecutive {@code characters} to the {@link #console},
    * starting from the {@code firstChar}.
-   * 
+   *
    * @param firstChar  The first character
    * @param characters The number of characters we want to append
    * @param trimComma  True if we want the comma to be omitted on every append
-   * @param trimOr     True if we want the string "or" to be omitted last append
+   * @param trimOr     True if we want the string "or" to be omitted from the last
+   *                   append
    */
   private void appendSequence(char firstChar, int characters, boolean trimComma, boolean trimOr) {
     int i;
@@ -211,7 +212,7 @@ public class Game {
 
   /**
    * Registers the player's position on the board.
-   * 
+   *
    * @param position The position
    */
   private void updateBoard(Position position) {
@@ -220,7 +221,7 @@ public class Game {
 
   /**
    * Updates the players last position.
-   * 
+   *
    * @param position The current player's position
    */
   private void updateLastPosition(Position position) {
@@ -273,7 +274,7 @@ public class Game {
    * terminates without returning false, we set the last player as winner with the
    * {@link #setWinner()} method and return the true.</li>
    * </ul>
-   * 
+   *
    * @return boolean
    */
   boolean traverseRow() {
@@ -300,7 +301,7 @@ public class Game {
    * terminates without returning false, we set the last player as winner with the
    * {@link #setWinner()} method and return the true.</li>
    * </ul>
-   * 
+   *
    * @return boolean
    */
   boolean traverseCol() {
@@ -327,7 +328,7 @@ public class Game {
    * terminates without returning false, we set the last player as winner with the
    * {@link #setWinner()} method and return the true.</li>
    * </ul>
-   * 
+   *
    * @return boolean
    */
   boolean traverseDiag() {
@@ -354,7 +355,7 @@ public class Game {
    * loop terminates without returning false, we set the last player as winner
    * with the {@link #setWinner()} method and return the true.</li>
    * </ul>
-   * 
+   *
    * @return boolean
    */
   boolean traverseAntiDiag() {
@@ -382,7 +383,7 @@ public class Game {
 
   /**
    * Returns the last played player.
-   * 
+   *
    * @return Player
    */
   private Player getLastPlayer() {
@@ -411,7 +412,7 @@ public class Game {
 
   /**
    * Returns true when the game is over.
-   * 
+   *
    * @return boolean
    */
   public boolean isTerminated() {
